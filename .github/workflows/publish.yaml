@@ -8,3 +8,14 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           echo npm install && echo npm run lint
+  publish:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Publish to GitHub registry
+      uses: JS-DevTools/npm-publish@v1
+      with:
+        registry: https://npm.pkg.github.com
+        token: ${{ secrets.GITHUB_TOKEN }}
